@@ -19,7 +19,10 @@ class DiceScreen extends StatelessWidget {
           // Buttons...
           ElevatedButton(
               onPressed:
-                  () => context.read<DiceBloc>().add(RollDice()),
+                  () => Future.delayed(
+                      const Duration(seconds: 1),
+                          () => context.read<DiceBloc>().add(RollDice())
+                  ),
               child: const Text('Roll')
           )
         ],
