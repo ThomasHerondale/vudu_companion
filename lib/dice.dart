@@ -23,13 +23,15 @@ class Dice extends StatelessWidget {
               decoration: BoxDecoration(
                 color: state.faces[index].faceColor,
                 borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                  width: state.lockFlags[index] ? 3 : 0,
+                  color: state.lockFlags[index] ?
+                  Colors.grey.shade600
+                  :
+                  Colors.transparent,
+                )
               ),
-              child: Center(
-                child: Text(
-                  state.lockFlags[index] ? 'locked' : 'unlocked',
-                ),
               ),
-            ),
           );
         } else {
           return const CircularProgressIndicator();
