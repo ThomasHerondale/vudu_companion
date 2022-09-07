@@ -4,27 +4,37 @@ abstract class DiceState extends Equatable {
   const DiceState();
 }
 
-class DiceRolled extends DiceState {
+abstract class DiceRolled extends DiceState {
   final List<DiceFace> faces;
   final List<bool> lockFlags;
 
-
-  const DiceRolled({
-    this.faces = const [DiceFace.invalid, DiceFace.invalid, DiceFace.invalid,
-        DiceFace.invalid, DiceFace.invalid],
-    this.lockFlags = const [false, false, false, false, false]
-      });
+  const DiceRolled(this.faces, this.lockFlags);
 
   @override
-  List<Object?> get props => [faces, lockFlags];
+  List<Object> get props => [faces, lockFlags];
+}
 
-  DiceRolled copyWith({
+class DiceInvalidRolled extends DiceRolled {
+
+  const DiceInvalidRolled() : super(
+      const [DiceFace.invalid, DiceFace.invalid, DiceFace.invalid,
+        DiceFace.invalid, DiceFace.invalid],
+      const [false, false, false, false, false]
+  );
+
+}
+
+class DiceValidRolled extends DiceRolled {
+
+  const DiceValidRolled(super.faces, super.lockFlags);
+
+  DiceValidRolled copyWith({
     List<DiceFace>? faces,
     List<bool>? lockFlags,
   }) {
-    return DiceRolled(
-      faces: faces ?? this.faces,
-      lockFlags: lockFlags ?? this.lockFlags,
+    return DiceValidRolled(
+      faces ?? super.faces,
+      lockFlags ?? super.lockFlags,
     );
   }
 }
