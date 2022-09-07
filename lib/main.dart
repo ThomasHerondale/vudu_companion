@@ -13,10 +13,6 @@ class VuduApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primaryColor: Colors.black,
-        backgroundColor: Colors.grey.shade500,
-      ),
       home: BlocProvider(
         create: (context) => DiceBloc()..add(RollDice()),
         child: const DiceScreen(),

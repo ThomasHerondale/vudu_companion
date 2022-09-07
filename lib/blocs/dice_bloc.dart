@@ -29,5 +29,8 @@ class DiceBloc extends Bloc<DiceEvent, DiceState> {
         emit(state.copyWith(lockFlags: newLockFlags));
       }
     });
+    on<ResetDice>((event, emit) {
+      emit(const DiceRolled());
+    });
   }
 }
