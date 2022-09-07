@@ -31,6 +31,14 @@ class Dice extends StatelessWidget {
                   Colors.transparent,
                 )
               ),
+              child: Center(
+                  child: state.saleFlags[index] ?
+                  const Icon(
+                    Icons.toll,
+                    size: 30,
+                  )
+                  :
+                  null),
               ),
           );
         } else {

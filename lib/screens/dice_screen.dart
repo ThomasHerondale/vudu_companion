@@ -11,10 +11,10 @@ class DiceScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0x00170E04),
+      backgroundColor: const Color(0xFF1C1825),
       body: Column(
         children: [
-          const Gap(100),
+          const Gap(180),
           const DiceView(),
           const Gap(20),
           // Buttons...
@@ -25,11 +25,34 @@ class DiceScreen extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                       primary: const Color(0xFF413557),
                   ),
-                  onPressed:
-                      () => Future.delayed(
+                  onPressed: () {
+                    final state = context.read<DiceBloc>().state;
+                    if (state is DiceRolled) {
+                      if (state is DiceValidRolled && !state.reRollable) {
+                        ScaffoldMessenger.of(context).clearSnackBars();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              'Non ci sono più dadi da lanciare!',
+                              style: TextStyle(
+                                fontFamily: 'Combo',
+                                color: Color(0xFF5EE43A),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 24
+                              ),
+                            ),
+                            duration: Duration(milliseconds: 900),
+                            backgroundColor: Color(0xFF413557),
+                          )
+                        );
+                      } else {
+                        Future.delayed(
                           const Duration(seconds: 1),
-                              () => context.read<DiceBloc>().add(RollDice())
-                      ),
+                              () => context.read<DiceBloc>().add(RollDice()),
+                        );
+                      }
+                    }
+                    },
                   child: const Text(
                     'Lancia i dadi',
                     style: TextStyle(

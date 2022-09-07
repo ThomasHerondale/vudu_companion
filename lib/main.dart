@@ -14,8 +14,9 @@ class VuduApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: BlocProvider(
-        create: (context) => DiceBloc()..add(RollDice()),
+        create: (context) => DiceBloc(),
         child: const DiceScreen(),
+
       ),
     );
   }
